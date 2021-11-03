@@ -6,13 +6,26 @@ WARMER NEST TEMPERATURES REDUCE HATCHING RATES OF A COOL-ADAPTED, MIGRATORY SONG
 The file Egg_Translocation-data.gzip contains the data required to recreated the analyses in the paper, including:
 
 1. Egg translocation manipulation data
+
+
+
+3. Internal and external (ambient) nest temperature data
+
+
+
+4. Female effort data
+
+
+
+5. Nestling measurement data
+
+
+
+6. Rangewide hatch rate data for black-throated blue warblers in the Nantahala National Forest and at the Hubbard Brook Experimental Forest.
+
 -BTBW_rangewide_analysis.R
 -rangedata.gzip
 
-3. Internal and external (ambient) nest temperature data
-4. Female effort data
-5. Nestling measurement data
-6. Rangewide hatch rate data for black-throated blue warblers in the Nantahala National Forest and at the Hubbard Brook Experimental Forest.
 
 From R, you can load each dataset with the command load()
 
