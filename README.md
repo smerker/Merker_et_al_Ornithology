@@ -7,8 +7,9 @@ The file Egg_Translocation-data.gzip contains the data required to recreated the
 
 1. Egg translocation manipulation data
 
-
-
+            -Translocation_Analysis.R
+            -Translocation_Data.gzip
+            
 3. Internal and external (ambient) nest temperature data
 
 
