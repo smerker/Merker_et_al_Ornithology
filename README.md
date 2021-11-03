@@ -6,7 +6,7 @@ WARMER NEST TEMPERATURES REDUCE HATCHING RATES OF A COOL-ADAPTED, MIGRATORY SONG
 The file Egg_Translocation-data.gzip contains the data required to recreated the analyses in the paper, including:
 
 1. Egg translocation manipulation data
-
+-BTBW_rangewide_analysis.R
 -rangedata.gzip
 
 3. Internal and external (ambient) nest temperature data
