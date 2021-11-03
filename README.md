@@ -23,9 +23,8 @@ The file Egg_Translocation-data.gzip contains the data required to recreated the
 
 6. Rangewide hatch rate data for black-throated blue warblers in the Nantahala National Forest and at the Hubbard Brook Experimental Forest.
 
--BTBW_rangewide_analysis.R
-
--rangedata.gzip
+            -BTBW_rangewide_analysis.R
+            -rangedata.gzip
 
 
 From R, you can load each dataset with the command load()
