@@ -33,5 +33,5 @@ This repository contains the data and R scripts required to recreated the analys
 From R, you can load each dataset with the command load()
 The different analyses are available in separate r-scripts.
 
-#put title here or delete this line#.Rmd is an Rmarkdown file for the appendices of the article.
+
 #put the full citation here when ready
