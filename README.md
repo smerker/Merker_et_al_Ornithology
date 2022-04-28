@@ -14,7 +14,6 @@ This repository contains data and R scripts to recreate the analyses in the pape
             -Microclimate_and_Female_Behavior.R
             -femalebehavior.gzip
             
-
 4. **Internal and external (ambient) nest temperature data**
 
             -Microclimate_and_Female_Behavior.R
@@ -24,11 +23,6 @@ This repository contains data and R scripts to recreate the analyses in the pape
 
             -Nestlings.R
             -Nestlings.gzip
-
-6. **Rangewide hatch rate data for black-throated blue warblers in the Nantahala National Forest and at the Hubbard Brook Experimental Forest**
-
-            -BTBW_rangewide_analysis.R
-            -rangedata.gzip
 
 
 
