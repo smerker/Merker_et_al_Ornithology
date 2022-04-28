@@ -1,8 +1,8 @@
 ## Data and Code for:
 
-###### WARMER NEST TEMPERATURES REDUCE HATCHING RATES OF A COOL-ADAPTED, MIGRATORY SONGBIRD AT ITS TRAILING-EDGE RANGE BOUNDARY  
+###### WARMER NEST TEMPERATURES REDUCE HATCHING RATES OF A COOL-ADAPTED, MIGRATORY SONGBIRD AT ITS TRAILING-EDGE RANGE BOUNDARY
 
-This repository contains the data and R scripts required to recreate the analyses in the paper, including:
+This repository contains data and R scripts to recreate the analyses in the paper, including:
 
 1. **Egg translocation manipulation data**
 
