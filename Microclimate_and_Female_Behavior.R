@@ -15,17 +15,24 @@ load("micro_clim_data.gzip")
 
 micro_clim_data$Species_eggs<-as.factor(micro_clim_data$Species_eggs)
 
+glm0 <- glm(cbind(Eggs.Hatched,unhatched) ~ 1, family=binomial, data=micro_clim_data, subset=!is.na(TinOFFscl))
+
 glm.climoutT<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*Toutscl, family=binomial, data=micro_clim_data)
 summary(glm.climoutT)
+anova(glm0, glm.climoutT, test="Chisq")
 
 glm.climoutH<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*Houtscl, family=binomial, data=micro_clim_data)
 summary(glm.climoutH)
-
+anova(glm.climoutH, test="Chisq")
 
 glm.climsums<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*TinOFFscl, family=binomial, data=micro_clim_data)
+summary(glm.climsums)
+anova(glm0, glm.climsums, test="Chisq")
+AIC(glm0, glm.climsums)
 
 glm.climsums1<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*TinONscl, family=binomial, data=micro_clim_data)
 summary(glm.climsums1)
+anova(glm.climsums1, test="Chisq")
 
 glm.climsums2<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*HinOFFscl, family=binomial, data=micro_clim_data)
 summary(glm.climsums2)
@@ -158,6 +165,139 @@ new.dat.clim$lwrHout<-plogis(pred.h.out$fit-(1.96*new.dat.clim$seHout))
 new.dat.clim$uprHout<-plogis(pred.h.out$fit+(1.96*new.dat.clim$seHout))
 new.dat.clim
 #
+
+
+
+
+
+
+
+
+load("newdatclim.R")
+load("insums.R")
+
+
+
+
+
+
+
+png("hatch_temp_humid.png", res=800, units="in", width=7, height=7)
+par(mfrow=c(2,2), mar=c(2,4,1,1), oma=c(1,1,1,1))
+
+plot(predictionToFF~TinOFFscl, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(-2.1, 1.9), 
+     xaxt='n',xlab=NA,ylab="Probablity of Hatching")
+
+axis(1, at=round(seq(min(new.dat.clim$TinOFFscl), max(new.dat.clim$TinOFFscl),length=5),1),
+     labels=round(seq(min(insums$TinOFF), max(insums$TinOFF),length=5),0), tick=TRUE, padj=-.75)
+
+polygon(x=c(min(subset(new.dat.clim, Species_eggs=="HOWA", select=TinOFFscl)),
+            min(subset(new.dat.clim, Species_eggs=="HOWA", select=TinOFFscl)), 
+            new.dat.clim$TinOFFscl[1:100],max(subset(new.dat.clim, Species_eggs=="HOWA", select=TinOFFscl)),
+            max(subset(new.dat.clim, Species_eggs=="HOWA", select=TinOFFscl)), 
+            new.dat.clim$TinOFFscl[100:1],min(subset(new.dat.clim, Species_eggs=="HOWA", select=TinOFFscl))),
+        y=c(min(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrToFF)), 
+            max(subset(new.dat.clim, Species_eggs=="HOWA", select=uprToFF)),   
+            subset(new.dat.clim, Species_eggs=="HOWA",select=uprToFF, drop=TRUE),     
+            max(subset(new.dat.clim, Species_eggs=="HOWA",select=uprToFF)),         
+            min(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrToFF)),
+            rev(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrToFF, drop=TRUE)),
+            min(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrToFF))), 
+        col=rgb(0.5,0,0,.2), border=FALSE)
+
+
+lines(predictionToFF~TinOFFscl, data=subset(new.dat.clim, Species_eggs=="BTBW"), col="blue")
+polygon(x=c(min(subset(new.dat.clim, Species_eggs=="BTBW", select=TinOFFscl)),
+            min(subset(new.dat.clim, Species_eggs=="BTBW", select=TinOFFscl)),
+            new.dat.clim$TinOFFscl[101:200],max(subset(new.dat.clim, Species_eggs=="BTBW", select=TinOFFscl)), 
+            max(subset(new.dat.clim, Species_eggs=="BTBW", select=TinOFFscl)),
+            new.dat.clim$TinOFFscl[200:101],
+            min(subset(new.dat.clim, Species_eggs=="BTBW", select=TinOFFscl))),
+        y=c(min(subset(new.dat.clim, Species_eggs=="BTBW", select=lwrToFF)), 
+            max(subset(new.dat.clim, Species_eggs=="BTBW", select=uprToFF)),   
+            subset(new.dat.clim,Species_eggs=="BTBW",select=uprToFF, drop=TRUE),     
+            max(subset(new.dat.clim,Species_eggs=="BTBW",select=uprToFF)),         
+            min(subset(new.dat.clim,Species_eggs=="BTBW", select=lwrToFF)),
+            rev(subset(new.dat.clim,Species_eggs=="BTBW", select=lwrToFF, drop=TRUE)),
+            min(subset(new.dat.clim, Species_eggs=="BTBW",select=lwrToFF))), 
+        col=rgb(0,0,0.5,.2), border=FALSE)
+text(-1.9, .1, "A", font=2, cex=1.2)
+mtext(side=3, "Foraging", font=2, cex=.9)
+mtext(side=1, "Inner Temperature (\u00B0C)", cex=.7, adj=.5, padj=2.7)
+
+plot(predictionToN~TinONscl, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(-2.0, 1.8), 
+     xaxt='n',xlab=NA,ylab="Probablity of Hatching")
+
+
+axis(1, at=round(seq(min(new.dat.clim$TinONscl), max(new.dat.clim$TinONscl),length=5),1),
+     labels=round(seq(min(insums$TinON), max(insums$TinON),length=5),0), tick=TRUE, padj=-.75)
+
+
+polygon(x=c(min(subset(new.dat.clim, Species_eggs=="HOWA", select=TinONscl), na.rm=T),
+            min(subset(new.dat.clim, Species_eggs=="HOWA", select=TinONscl), na.rm=T), 
+            new.dat.clim$TinONscl[1:100],max(subset(new.dat.clim, Species_eggs=="HOWA", select=TinONscl), na.rm=T), 
+            max(subset(new.dat.clim, Species_eggs=="HOWA", select=TinONscl), na.rm=T), 
+            new.dat.clim$TinONscl[100:1],
+            min(subset(new.dat.clim, Species_eggs=="HOWA", select=TinONscl), na.rm=T)),
+        y=c(min(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrToN)), 
+            max(subset(new.dat.clim, Species_eggs=="HOWA", select=uprToN)),   
+            subset(new.dat.clim, Species_eggs=="HOWA",select=uprToN, drop=TRUE),     
+            max(subset(new.dat.clim, Species_eggs=="HOWA",select=uprToN)),         
+            min(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrToN)),
+            rev(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrToN, drop=TRUE)),
+            min(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrToN))), 
+        col=rgb(0.5,0,0,.2), border=FALSE)
+
+lines(predictionToN~TinONscl, data=subset(new.dat.clim, Species_eggs=="BTBW"), col="blue")
+polygon(x=c(min(subset(new.dat.clim, Species_eggs=="BTBW", select=TinONscl), na.rm=T),
+            min(subset(new.dat.clim, Species_eggs=="BTBW", select=TinONscl), na.rm=T), 
+            new.dat.clim$TinONscl[101:200],
+            max(subset(new.dat.clim, Species_eggs=="BTBW", select=TinONscl), na.rm=T),
+            max(subset(new.dat.clim, Species_eggs=="BTBW", select=TinONscl), na.rm=T), 
+            new.dat.clim$TinONscl[200:101],min(subset(new.dat.clim, Species_eggs=="BTBW", select=TinONscl), na.rm=T)),
+        y=c(min(subset(new.dat.clim, Species_eggs=="BTBW", select=lwrToN)), 
+            max(subset(new.dat.clim, Species_eggs=="BTBW", select=uprToN)),   
+            subset(new.dat.clim,Species_eggs=="BTBW",select=uprToN, drop=TRUE),     
+            max(subset(new.dat.clim,Species_eggs=="BTBW",select=uprToN)),         
+            min(subset(new.dat.clim,Species_eggs=="BTBW", select=lwrToN)),
+            rev(subset(new.dat.clim,Species_eggs=="BTBW", select=lwrToN, drop=TRUE)),
+            min(subset(new.dat.clim, Species_eggs=="BTBW",select=lwrToN))), 
+        col=rgb(0,0,0.5,.2), border=FALSE)
+legend(-0.55, .35, c("Hooded", "Black-throated blue"), col=c("red", "blue"), title="Warbler Species", lty=1, cex=.8)
+text(-1.9, .1, "B", font=2, cex=1.2)
+mtext(side=3, "Incubating", font=2, cex=.9)
+mtext(side=1, "Inner Temperature (\u00B0C)", cex=.7, adj=.5, padj=2.7)
+
+
+dev.off()
+
+system("gopen hatch_temp.png")
+
+
+
+
+
+
+ls()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -350,8 +490,18 @@ lines(up~H.out.mn, data=new.dat.off.H.H)
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-load("newdatclim.R")
-load("insums.R")
+
+
+
+
+
+
+
+
+
+
+
+
 
 png("On_Off_Bouts_6panel.png", res=800, units="in", width=6, height=6)
 par(mfrow=c(3,2), mar=c(2,4,1,1), oma=c(1,1,1,1))
