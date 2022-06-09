@@ -119,6 +119,7 @@ str(new.dat.clim)
 
 ## Back-transform covariates to original scales (original values were in insums data)
 load("insums.R")
+load("outsums.R")
 
 t.in.off.mean <- mean(insums$TinOFF)
 t.in.off.sd <- sd(insums$TinOFF)
@@ -147,6 +148,20 @@ all( ((insums$HinON-h.in.on.mean)/h.in.on.sd) == insums$HinONscl)
 new.dat.clim$HinON <- new.dat.clim$HinONscl*h.in.on.sd + h.in.on.mean
 pred.h.in.on.howa.back <- pred.h.in.on.howa*h.in.on.sd + h.in.on.mean
 pred.h.in.on.btbw.back <- pred.h.in.on.btbw*h.in.on.sd + h.in.on.mean
+
+
+t.out.mean <- mean(outsums$tempOUT)
+t.out.sd <- sd(outsums$tempOUT)
+new.dat.clim$Tout <- new.dat.clim$Toutscl*t.out.sd + t.out.mean
+pred.t.out.howa.back <- pred.t.out.howa*t.out.sd + t.out.mean
+pred.t.out.btbw.back <- pred.t.out.btbw*t.out.sd + t.out.mean
+
+
+h.out.mean <- mean(outsums$humidOUT)
+h.out.sd <- sd(outsums$humidOUT)
+new.dat.clim$Hout <- new.dat.clim$Houtscl*h.out.sd + h.out.mean
+pred.h.out.howa.back <- pred.h.out.howa*h.out.sd + h.out.mean
+pred.h.out.btbw.back <- pred.h.out.btbw*h.out.sd + h.out.mean
 
 
 str(new.dat.clim)
@@ -241,20 +256,20 @@ polygon(x=c(pred.t.in.on.btbw.back, rev(pred.t.in.on.btbw.back)),
         col=rgb(0,0,0.5,.2), border=FALSE)
 text(20, 0.1, "C", font=2, cex=1.2)
 ## Temp ambient
-plot(predictionTout~Toutscl, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(-1.7, 1.7), 
-     xaxt='n', xlab="Ambient Temperature (\u00B0C)", ylab="", main="", mgp=c(2,1,0)) ##"Probablity of Hatching")
-polygon(x=c(pred.t.out.howa, rev(pred.t.out.howa)),
+plot(predictionTout~Tout, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(14.5, 20.9), 
+     xlab="Ambient Temperature (\u00B0C)", ylab="", main="", mgp=c(2,1,0)) ##"Probablity of Hatching")
+polygon(x=c(pred.t.out.howa.back, rev(pred.t.out.howa.back)),
         y=c(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrTout, drop=TRUE),
             rev(subset(new.dat.clim, Species_eggs=="HOWA", select=uprTout, drop=TRUE))),
         col=rgb(0.5,0,0,.2), border=FALSE)
-lines(predictionTout~Toutscl, data=subset(new.dat.clim, Species_eggs=="BTBW"), col="blue")
-polygon(x=c(pred.t.out.btbw, rev(pred.t.out.btbw)),
+lines(predictionTout~Tout, data=subset(new.dat.clim, Species_eggs=="BTBW"), col="blue")
+polygon(x=c(pred.t.out.btbw.back, rev(pred.t.out.btbw.back)),
         y=c(subset(new.dat.clim, Species_eggs=="BTBW", select=lwrTout, drop=TRUE),
             rev(subset(new.dat.clim, Species_eggs=="BTBW", select=uprTout, drop=TRUE))),
         col=rgb(0,0,0.5,.2), border=FALSE)
-text(-1.5, 0.1, "E", font=2, cex=1.2)
+text(15, 0.1, "E", font=2, cex=1.2)
 ## Inner humidity during off bouts
-plot(predictionHoFF~HinOFF, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(32, 88),  
+plot(predictionHoFF~HinOFF, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(32, 91),  
      xlab="Inner Humidity, Foraging", ylab="", main="", mgp=c(2,1,0)) #"Probablity of Hatching")
 polygon(x=c(pred.h.in.off.howa.back, rev(pred.h.in.off.howa.back)),
         y=c(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrHoFF, drop=TRUE),
@@ -281,19 +296,19 @@ polygon(x=c(pred.h.in.off.btbw.back, rev(pred.h.in.off.btbw.back)),
         col=rgb(0,0,0.5,.2), border=FALSE)
 text(35, .1, "D", font=2, cex=1.2)
 ## Ambient humidity
-plot(predictionHout~Houtscl, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), ##xlim=c(-2.0, 1.8), 
-     xaxt='n', xlab="Ambient Humidity", ylab="", main="", mgp=c(2,1,0)) ##"Probablity of Hatching")
-polygon(x=c(pred.h.out.howa, rev(pred.h.out.howa)),
+plot(predictionHout~Hout, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), ##xlim=c(-2.0, 1.8), 
+     xlab="Ambient Humidity", ylab="", main="", mgp=c(2,1,0)) ##"Probablity of Hatching")
+polygon(x=c(pred.h.out.howa.back, rev(pred.h.out.howa.back)),
         y=c(subset(new.dat.clim, Species_eggs=="HOWA", select=lwrHout, drop=TRUE),
             rev(subset(new.dat.clim, Species_eggs=="HOWA", select=uprHout, drop=TRUE))),
         col=rgb(0.5,0,0,.2), border=FALSE)
-lines(predictionHout~Houtscl, data=subset(new.dat.clim, Species_eggs=="BTBW"), col="blue")
-polygon(x=c(pred.h.out.btbw, rev(pred.h.out.btbw)),
+lines(predictionHout~Hout, data=subset(new.dat.clim, Species_eggs=="BTBW"), col="blue")
+polygon(x=c(pred.h.out.btbw.back, rev(pred.h.out.btbw.back)),
         y=c(subset(new.dat.clim, Species_eggs=="BTBW", select=lwrHout, drop=TRUE),
             rev(subset(new.dat.clim, Species_eggs=="BTBW", select=uprHout, drop=TRUE))),
         col=rgb(0,0,0.5,.2), border=FALSE)
-text(-1.9, .1, "F", font=2, cex=1.2)
-legend(-0.4, .2, c("Hooded", "Black-throated blue"), col=c("red", "blue"), title="Warbler Species", lty=1, cex=.8)
+text(78, 0.1, "F", font=2, cex=1.2)
+legend(88, 0.2, c("Hooded", "Black-throated blue"), col=c("red", "blue"), title="Warbler Species", lty=1, cex=.8)
 dev.off()
 
 ## system("open hatch_temp_humidity.png")
