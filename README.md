@@ -15,6 +15,7 @@ This repository contains data and R scripts to recreate the analyses in the pape
             -femalebehavior.gzip
             -insums.R
             -newdatclim.R
+            -outsums.R
             
 4. **Internal and external (ambient) nest temperature data**
 
