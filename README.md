@@ -19,7 +19,7 @@ This repository contains data and R scripts to recreate the analyses in the pape
             
 4. **Internal and external (ambient) nest temperature data**
 
-            -6_panel_climate_figure.R.R
+            -6_panel_climate_figure.R
             -climateadat.gzip
 
 5. **Nestling measurement data**
