@@ -715,7 +715,6 @@ lines(up~H.out.mn, data=new.dat.off.H.H)
 
 png("On_Off_Bouts_4panel.png", res=800, units="in", width=7, height=7)
 par(mfcol=c(2,2), mar=c(4,4,2,1), oma=c(0,0,0,0))
-## legend(-0.55, .35, c("Hooded", "Black-throated blue"), col=c("red", "blue"), title="Warbler Species", lty=1, cex=.8)
 ## text(-1.9, .1, "B", font=2, cex=1.2)
 plot(fit1~T.out.mn, data=new.dat.on.B.T, type="l", col="blue", xlim=c(7,31),ylim=c(13,29),
      xlab="Ambient Temperature (\u00B0C)", ylab="Time Incubating", lwd=2, xaxt='s', mgp=c(2.5,1,0))
@@ -742,6 +741,7 @@ polygon(x=c(7.07,7.07, new.dat.on.H.T$T.out.mn[1:100], 30.73, 30.73, new.dat.on.
         col=rgb(0.5,0,0,.2), border=FALSE)
 text(8, 13.4, "A", font=2, cex=1.2)
 ##mtext(side=1, "Ambient Temperature (\u00B0C)", cex=.7, adj=.5, padj=2.7)
+legend(8, 29, c("Hooded", "Black-throated blue"), col=c("red", "blue"), title="Warbler Species", lty=1, cex=.8)
 ## off, temperature
 plot(fit1~T.out.mn, data=new.dat.off.B.T, type="l", col="blue", xlim=c(7,31),ylim=c(5,9),
      xlab="Ambient Temperature (\u00B0C)", ylab="Time Foraging", lwd=2, xaxt='s', mgp=c(2.5,1,0))
