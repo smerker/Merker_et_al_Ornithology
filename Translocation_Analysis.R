@@ -7,6 +7,7 @@ load("Translocation_Data.gzip")
 glm1 <- glm(cbind(Eggs.Hatched,unhatched) ~ treatment_combined, family=binomial, data=Translocation_Data)
 summary(glm1)
 anova(glm1, test="LRT")  ## Likelihood ratio test
+step(glm1)               ## Model with treatment is better than the null
 
 ## Multiple comparisons
 library(multcomp)

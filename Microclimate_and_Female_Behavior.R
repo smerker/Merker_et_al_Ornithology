@@ -254,7 +254,7 @@ polygon(x=c(pred.t.in.on.btbw.back, rev(pred.t.in.on.btbw.back)),
         y=c(subset(new.dat.clim, Species_eggs=="BTBW", select=lwrToN, drop=TRUE),
             rev(subset(new.dat.clim, Species_eggs=="BTBW", select=uprToN, drop=TRUE))),
         col=rgb(0,0,0.5,.2), border=FALSE)
-text(20, 0.1, "C", font=2, cex=1.2)
+text(20, 0.1, "B", font=2, cex=1.2)
 ## Temp ambient
 plot(predictionTout~Tout, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(14.5, 20.9), 
      xlab="Ambient Temperature (\u00B0C)", ylab="", main="", mgp=c(2,1,0)) ##"Probablity of Hatching")
@@ -267,7 +267,7 @@ polygon(x=c(pred.t.out.btbw.back, rev(pred.t.out.btbw.back)),
         y=c(subset(new.dat.clim, Species_eggs=="BTBW", select=lwrTout, drop=TRUE),
             rev(subset(new.dat.clim, Species_eggs=="BTBW", select=uprTout, drop=TRUE))),
         col=rgb(0,0,0.5,.2), border=FALSE)
-text(15, 0.1, "E", font=2, cex=1.2)
+text(15, 0.1, "C", font=2, cex=1.2)
 ## Inner humidity during off bouts
 plot(predictionHoFF~HinOFF, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(32, 91),  
      xlab="Inner Humidity, Foraging", ylab="", main="", mgp=c(2,1,0)) #"Probablity of Hatching")
@@ -280,7 +280,7 @@ polygon(x=c(pred.h.in.off.btbw.back, rev(pred.h.in.off.btbw.back)),
         y=c(subset(new.dat.clim, Species_eggs=="BTBW", select=lwrHoFF, drop=TRUE),
             rev(subset(new.dat.clim, Species_eggs=="BTBW", select=uprHoFF, drop=TRUE))),
         col=rgb(0,0,0.5,.2), border=FALSE)
-text(35, .1, "B", font=2, cex=1.2)
+text(35, .1, "D", font=2, cex=1.2)
 mtext("Probability of hatching", side=2, line=0, outer=TRUE)
 ## Inner humidity during on bouts
 plot(predictionHoN~HinON, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), xlim=c(32, 91), 
@@ -294,7 +294,7 @@ polygon(x=c(pred.h.in.off.btbw.back, rev(pred.h.in.off.btbw.back)),
         y=c(subset(new.dat.clim, Species_eggs=="BTBW", select=lwrHoFF, drop=TRUE),
             rev(subset(new.dat.clim, Species_eggs=="BTBW", select=uprHoFF, drop=TRUE))),
         col=rgb(0,0,0.5,.2), border=FALSE)
-text(35, .1, "D", font=2, cex=1.2)
+text(35, .1, "E", font=2, cex=1.2)
 ## Ambient humidity
 plot(predictionHout~Hout, data=subset(new.dat.clim, Species_eggs=="HOWA"), col="red",type="l", ylim=c(0,1), ##xlim=c(-2.0, 1.8), 
      xlab="Ambient Humidity", ylab="", main="", mgp=c(2,1,0)) ##"Probablity of Hatching")
@@ -709,7 +709,124 @@ lines(up~H.out.mn, data=new.dat.off.H.H)
 
 
 
-#
+## 4 panel plot
+
+
+
+png("On_Off_Bouts_4panel.png", res=800, units="in", width=7, height=7)
+par(mfcol=c(2,2), mar=c(4,4,2,1), oma=c(0,0,0,0))
+## legend(-0.55, .35, c("Hooded", "Black-throated blue"), col=c("red", "blue"), title="Warbler Species", lty=1, cex=.8)
+## text(-1.9, .1, "B", font=2, cex=1.2)
+plot(fit1~T.out.mn, data=new.dat.on.B.T, type="l", col="blue", xlim=c(7,31),ylim=c(13,29),
+     xlab="Ambient Temperature (\u00B0C)", ylab="Time Incubating", lwd=2, xaxt='s', mgp=c(2.5,1,0))
+## axis(1, at=seq(10,29,length=6),
+##      labels=seq(10,30,length=6), tick=TRUE, padj=-.75)
+polygon(x=c(9.1,9.1, new.dat.on.B.T$T.out.mn[1:100],29.3, 29.3, new.dat.on.B.T$T.out.mn[100:1],9.1),
+        y=c(min(subset(new.dat.on.B.T, select=low)), 
+            max(subset(new.dat.on.B.T, select=up)),   
+            subset(new.dat.on.B.T,select=up, drop=TRUE),     
+            max(subset(new.dat.on.B.T,select=up)),         
+            min(subset(new.dat.on.B.T, select=low)),
+            rev(subset(new.dat.on.B.T, select=low, drop=TRUE)),
+            min(subset(new.dat.on.B.T, select=low))), 
+        col=rgb(0,0,0.5,.2), border=FALSE)
+lines(fit1~T.out.mn, data=new.dat.on.H.T, lty=1, col="red", lwd=2)
+polygon(x=c(7.07,7.07, new.dat.on.H.T$T.out.mn[1:100], 30.73, 30.73, new.dat.on.H.T$T.out.mn[100:1],7.07),
+        y=c(min(subset(new.dat.on.H.T, select=low)), 
+            max(subset(new.dat.on.H.T, select=up)),   
+            subset(new.dat.on.H.T,select=up, drop=TRUE),     
+            max(subset(new.dat.on.H.T,select=up)),         
+            min(subset(new.dat.on.H.T, select=low)),
+            rev(subset(new.dat.on.H.T, select=low, drop=TRUE)),
+            min(subset(new.dat.on.H.T, select=low))), 
+        col=rgb(0.5,0,0,.2), border=FALSE)
+text(8, 13.4, "A", font=2, cex=1.2)
+##mtext(side=1, "Ambient Temperature (\u00B0C)", cex=.7, adj=.5, padj=2.7)
+## off, temperature
+plot(fit1~T.out.mn, data=new.dat.off.B.T, type="l", col="blue", xlim=c(7,31),ylim=c(5,9),
+     xlab="Ambient Temperature (\u00B0C)", ylab="Time Foraging", lwd=2, xaxt='s', mgp=c(2.5,1,0))
+## axis(1, at=seq(10,29,length=6),
+##      labels=seq(10,30,length=6), tick=TRUE, padj=-.75)
+polygon(x=c(9.1,9.1, new.dat.off.B.T$T.out.mn[1:100], 31.26, 31.26, new.dat.off.B.T$T.out.mn[100:1],9.1),
+        y=c(min(subset(new.dat.off.B.T, select=low)), 
+            max(subset(new.dat.off.B.T, select=up)),   
+            subset(new.dat.off.B.T,select=up, drop=TRUE),     
+            max(subset(new.dat.off.B.T,select=up)),         
+            min(subset(new.dat.off.B.T, select=low)),
+            rev(subset(new.dat.off.B.T, select=low, drop=TRUE)),
+            min(subset(new.dat.off.B.T, select=low))), 
+        col=rgb(0,0,0.5,.2), border=FALSE)
+# lines(low~T.out.mn, data=new.dat.off.B.T, lty=2, col="blue")
+# lines(up~T.out.mn, data=new.dat.off.B.T, lty=2, col="blue")
+lines(fit1~T.out.mn, data=new.dat.off.H.T, lty=1, col="red", lwd=2)
+polygon(x=c(7.1,7.1, new.dat.off.H.T$T.out.mn[1:100], 29.17, 29.17, new.dat.off.H.T$T.out.mn[100:1],7.1),
+        y=c(min(subset(new.dat.off.H.T, select=low)), 
+            max(subset(new.dat.off.H.T, select=up)),   
+            subset(new.dat.off.H.T,select=up, drop=TRUE),     
+            max(subset(new.dat.off.H.T,select=up)),         
+            min(subset(new.dat.off.H.T, select=low)),
+            rev(subset(new.dat.off.H.T, select=low, drop=TRUE)),
+            min(subset(new.dat.off.H.T, select=low))), 
+        col=rgb(0.5,0,0,.2), border=FALSE)
+text(8, 5.1, "B", font=2, cex=1.2)
+## mtext(side=1, "Ambient Temperature (\u00B0C)", cex=.7, adj=.5, padj=2.7)
+## On, humidity
+plot(fit2~H.out.mn, data=new.dat.on.B.H, type="l", col="blue", xlim=c(38,99),ylim=c(13,30),
+     xlab="Ambient Humidity", xaxt='s', ylab="Time Incubating", lwd=2, mgp=c(2.5,1,0))
+## axis(1, at=seq(40,100,length=7),
+##      labels=seq(40,100,length=7), tick=TRUE, padj=-.75)
+polygon(x=c(37.1,37.1, new.dat.on.B.H$H.out.mn[1:100], 100, 100, new.dat.on.B.H$H.out.mn[100:1],37.1),
+        y=c(min(subset(new.dat.on.B.H, select=low)), 
+            max(subset(new.dat.on.B.H, select=up)),   
+            subset(new.dat.on.B.H,select=up, drop=TRUE),     
+            max(subset(new.dat.on.B.H,select=up)),         
+            min(subset(new.dat.on.B.H, select=low)),
+            rev(subset(new.dat.on.B.H, select=low, drop=TRUE)),
+            min(subset(new.dat.on.B.H, select=low))), 
+        col=rgb(0,0,0.5,.2), border=FALSE)
+lines(fit2~H.out.mn, data=new.dat.on.H.H, lty=1, col="red", lwd=2)
+polygon(x=c(42.39,42.39, new.dat.on.H.H$H.out.mn[1:100], 100, 100, new.dat.on.H.H$H.out.mn[100:1],42.39),
+        y=c(min(subset(new.dat.on.H.H, select=low)), 
+            max(subset(new.dat.on.H.H, select=up)),   
+            subset(new.dat.on.H.H,select=up, drop=TRUE),     
+            max(subset(new.dat.on.H.H,select=up)),         
+            min(subset(new.dat.on.H.H, select=low)),
+            rev(subset(new.dat.on.H.H, select=low, drop=TRUE)),
+            min(subset(new.dat.on.H.H, select=low))), 
+        col=rgb(0.5,0,0,.2), border=FALSE)
+text(40, 13.4, "C", font=2, cex=1.2)
+##mtext(side=1, "Ambient Humidity", cex=.7, adj=.5, padj=2.7)
+## off, humidity
+plot(fit2~H.out.mn, data=new.dat.off.B.H, type="l", col="blue",xlim=c(38,100), ylim=c(5,9),
+     xlab="Ambient Humidity", xaxt='s', ylab="Time Foraging", lwd=2, mgp=c(2.5,1,0))
+## axis(1, at=seq(40,100,length=7),
+##      labels=seq(40,100,length=7), tick=TRUE, padj=-.75)
+polygon(x=c(37.7,37.7, new.dat.off.B.H$H.out.mn[1:100], 100, 100, new.dat.off.B.H$H.out.mn[100:1],37.7),
+        y=c(min(subset(new.dat.off.B.H, select=low)), 
+            max(subset(new.dat.off.B.H, select=up)),   
+            subset(new.dat.off.B.H,select=up, drop=TRUE),     
+            max(subset(new.dat.off.B.H,select=up)),         
+            min(subset(new.dat.off.B.H, select=low)),
+            rev(subset(new.dat.off.B.H, select=low, drop=TRUE)),
+            min(subset(new.dat.off.B.H, select=low))), 
+        col=rgb(0,0,0.5,.2), border=FALSE)
+lines(fit2~H.out.mn, data=new.dat.off.H.H, lty=1, col="red", lwd=2)
+polygon(x=c(42.5,42.5, new.dat.off.H.H$H.out.mn[1:100], 100, 100, new.dat.off.H.H$H.out.mn[100:1],42.5),
+        y=c(min(subset(new.dat.off.H.H, select=low)), 
+            max(subset(new.dat.off.H.H, select=up)),   
+            subset(new.dat.off.H.H,select=up, drop=TRUE),     
+            max(subset(new.dat.off.H.H,select=up)),         
+            min(subset(new.dat.off.H.H, select=low)),
+            rev(subset(new.dat.off.H.H, select=low, drop=TRUE)),
+            min(subset(new.dat.off.H.H, select=low))), 
+        col=rgb(0.5,0,0,.2), border=FALSE)
+text(40, 5.1, "D", font=2, cex=1.2)
+##mtext(side=1, "Ambient Humidity", cex=.7, adj=.5, padj=2.7)
+dev.off()
+
+system("gopen On_Off_Bouts_4panel.png")
+
+
 
 
 
@@ -966,6 +1083,7 @@ text(47, 5.3, "F", font=2, cex=1.2)
 mtext(side=1, "Ambient Humidity", cex=.7, adj=.5, padj=2.7)
 
 dev.off()
-system("open On_Off_Bouts_6panel.png")
+
+system("gopen On_Off_Bouts_6panel.png")
 
 
