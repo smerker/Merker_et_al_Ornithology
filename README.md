@@ -21,7 +21,7 @@ This repository contains data and R scripts to recreate the analyses in the pape
 
             -Microclimate_Analysis.R
             -6_panel_climate_figure.R
-            -climatedata.gzip
+            -Nest_Climate_Data.gzip
 
 5. **Nestling measurement data**
 
