@@ -11,7 +11,7 @@ This repository contains data and R scripts to recreate the analyses in the pape
             
 3. **Female effort data**
             
-            -Microclimate_and_Female_Behavior.R
+            -Female_Behavior_Analysis.R
             -femalebehavior.gzip
             -insums.R
             -newdatclim.R
@@ -19,6 +19,7 @@ This repository contains data and R scripts to recreate the analyses in the pape
             
 4. **Internal and external (ambient) nest temperature data**
 
+            -Microclimate_Analysis.R
             -6_panel_climate_figure.R
             -climatedata.gzip
 
