@@ -8,7 +8,7 @@
 
 
 #bring in data
-load("micro_clim_data.gzip")
+load("micro_climate_data.gzip")
 
 
 ####models including temperature and humidity####
@@ -539,7 +539,7 @@ ls()
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #bring in the data. 
-load("femalebehavior.gzip")
+load("female_behavior.gzip")
 
 #black-throated blue on-nest models  -- log transformed -- random effects include day within nest
 
