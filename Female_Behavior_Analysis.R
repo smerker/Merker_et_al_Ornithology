@@ -117,9 +117,9 @@ new.dat.clim$Species_eggs=rep(c("HOWA", "BTBW"), each=100)
 str(new.dat.clim)
 
 
-## Back-transform covariates to original scales (original values were in insums data)
-load("insums.R")
-load("outsums.R")
+## Back-transform covariates to original scales (original values were in data)
+load("in_sums.R") # object called 'insums'
+load("out_sums.R") # object called 'outsums'
 
 t.in.off.mean <- mean(insums$TinOFF)
 t.in.off.sd <- sd(insums$TinOFF)
@@ -318,7 +318,7 @@ system("gopen hatch_temp_humidity.png")
 
 
 ## load("newdatclim.R")
-load("insums.R")
+load("in_sums.R") # object called 'insums'
 
 
 
