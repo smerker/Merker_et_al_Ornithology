@@ -3,12 +3,6 @@
 load("Nest_Climate_Data.gzip")
 #save(night.sum.stats, night.out.sum.stats, day.sum.stats, day.out.sum.stats, file="Nest_Climate_Data.gzip")
 
-night.sum.stats<-night.sum.stats[night.sum.stats$nestID!="20-019",]
-night.out.sum.stats<-night.out.sum.stats[night.out.sum.stats$nestID!="20-019",]
-day.sum.stats<-day.sum.stats[day.sum.stats$nestID!="20-019",]
-day.out.sum.stats<-day.out.sum.stats[day.out.sum.stats$nestID!="20-019",]
-
-
 
 #### Night time Temperature and Humidity Analysis ####
 
