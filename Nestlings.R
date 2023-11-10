@@ -868,180 +868,399 @@ legend(3.1,14.5, c("BTBW-swap","BTBW-umanipulated"), pch=c(16,15),lty=c(1,3), co
 
 
 
-par(mfrow=c(1,2), mar=c(2,2,2,1))
-plot(massGain~trt, data=subset(nestlingGains, species=="HOWA"), main="HOWA")
-plot(massGain~trt, data=subset(nestlingGains, species=="BTBW"), main="BTBW")
 
-par(mfrow=c(1,2), mar=c(2,2,2,1))
-plot(tarsGain~trt, data=subset(nestlingGains, species=="HOWA"), main="HOWA")
-plot(tarsGain~trt, data=subset(nestlingGains, species=="BTBW"), main="BTBW")
-
-par(mfrow=c(1,2), mar=c(2,2,2,1))
-plot(naresGain~trt, data=subset(nestlingGains, species=="HOWA"), main="HOWA")
-plot(naresGain~trt, data=subset(nestlingGains, species=="BTBW"), main="BTBW")
-
-par(mfrow=c(1,2), mar=c(2,2,2,1))
-plot(widthGain~trt, data=subset(nestlingGains, species=="HOWA"), main="HOWA")
-plot(widthGain~trt, data=subset(nestlingGains, species=="BTBW"), main="BTBW")
-
-par(mfrow=c(1,2), mar=c(2,2,2,1))
-plot(depthGain~trt, data=subset(nestlingGains, species=="HOWA"), main="HOWA")
-plot(depthGain~trt, data=subset(nestlingGains, species=="BTBW"), main="BTBW")
-
-par(mfrow=c(1,2), mar=c(2,2,2,1))
-plot(wingGain~trt, data=subset(nestlingGains, species=="HOWA"), main="HOWA")
-plot(wingGain~trt, data=subset(nestlingGains, species=="BTBW"), main="BTBW")
-
-#do some subsetting for plotting.
-#black-throated blue warblers
-blings.swapped<-lings[lings$treatment=="swap"&lings$species=="BTBW",]
-blings.control<-lings[lings$treatment=="control"&lings$species=="BTBW",]
-blings.unman<-lings[lings$treatment=="unmanipulated"&lings$species=="BTBW",]
-#hooded warblers
-hlings.swapped<-lings[lings$treatment=="swap"&lings$species=="HOWA",]
-hlings.control<-lings[lings$treatment=="control"&lings$species=="HOWA",]
-hlings.unman<-lings[lings$treatment=="unmanipulated"&lings$species=="HOWA",]
-
-#now do some plotting
-#black-throated blue warblers
-plot(mass~age.days., data=blings.swapped, col="blue")
-points(mass~age.days., data=blings.control, col="red")
-points(mass~age.days., data=blings.unman, col="green")
-#hooded warblers
-plot(mass~age.days., data=hlings.swapped, col="blue")
-points(mass~age.days., data=hlings.control, col="red")
-points(mass~age.days., data=hlings.unman, col="green")
-
-#swapped compare
-plot(mass~age.days., data=hlings.swapped, col="red")
-points(mass~age.days., data=blings.swapped, col="blue")
+#### BY species 6-panels ####
 
 
-
+#### BTBW
 
 #### 6-panel plot ####
 
 xtick<-seq(2, 4, by=1)
 axis(side=1, at=xtick, labels = FALSE)
 #mass gain
-png("NESTLINGS.png", width=8, height=10, units="in", res=800)
+png("BTBW_NESTLINGS.png", width=8, height=10, units="in", res=800)
 par(mfrow=c(3,2),mar=c(4,4,1,1),oma=c(1,1,1,1))
-plot(pred.fit~broodsize, data=subset(massgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(4.3,5.9) ,ylab="Gain(g)", xlab="Brood size", lwd=2)
-points(pred.fit~I(broodsize+.07), data=subset(massgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+plot(pred.fit~broodsize, data=subset(massgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(4,6.0) ,ylab="Gain(g)", xlab="Brood size", lwd=2)
 arrows(c(2,3,4), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="BTBW"& massgain.new.dat$trt=="swap"], c(2,3,4), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="BTBW"& massgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
-arrows(c(2.07,3.07,4.07), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
 
-points(pred.fit~I(broodsize), data=subset(massgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+
 points(pred.fit~I(broodsize+.09), data=subset(massgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
 arrows(c(2.09,3.09,4.09), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="BTBW"& massgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="BTBW"& massgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
-arrows(c(2,3,4), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="unmanipulated"], c(2,3,4), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
 
-text(3,5.8, "A) Mass", font=2, cex=1.2)
-legend(2.15,4.62, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+# add means
+#range(nestlingGains_no_ctrl$massGain, na.rm=T)
+points(massGain~I(broodsize), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(massGain~I(broodsize+.09), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,6, "A) Mass", font=2, cex=1.2)
+legend(2.1,4.3, c("BTBW-translocated","BTBW-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("blue","blue"),cex=.85)
 axis(side=1, at=xtick, labels = TRUE)
-#text(3.8, 5.82, "A", font=2, cex=1.5)
 
 #tarsus gain
 
-#par(oma=c(1,1,1,1))
-plot(pred.fit~I(broodsize+.02), data=subset(tarsgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(4.7,13.1) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
-points(pred.fit~I(broodsize+.07), data=subset(tarsgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+
+plot(pred.fit~I(broodsize+.02), data=subset(tarsgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(4.2,10.1) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
 arrows(c(2.02,3.02,4.02), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="BTBW"& tarsgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="BTBW"& tarsgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
-arrows(c(2.07,3.07,4.07), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
 
 
-points(pred.fit~broodsize, data=subset(tarsgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
 points(pred.fit~I(broodsize+.09), data=subset(tarsgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
 arrows(c(2.09,3.09,4.09), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="BTBW"& tarsgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="BTBW"& tarsgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
-arrows(c(2,3,4), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="unmanipulated"], c(2,3,4), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
 
-text(3,12.5, "B) Tarsus", font=2, cex=1.2)
-legend(2.15,6.37, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+#range(nestlingGains_no_ctrl$tarsGain, na.rm=T)
+points(tarsGain~I(broodsize), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(tarsGain~I(broodsize+.09), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,10, "B) Tarsus", font=2, cex=1.2)
+legend(2.15,5.1, c("BTBW-translocated","BTBW-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("blue","blue"),cex=.85)
 axis(side=1, at=xtick, labels = TRUE)
-#text(3.8, 12.8, "B", font=2, cex=1.5)
-
-#box(which="plot",lty = "solid", col="black")
 
 #wing
-#par(oma=c(1,1,1,1))
-plot(pred.fit~I(broodsize+.02), data=subset(winggain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(10,26) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
-points(pred.fit~I(broodsize+.07), data=subset(winggain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
-arrows(c(2.02,3.02,4.02), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="swap"], c(2.02,3.02,4.02), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
-arrows(c(2.07,3.07,4.07), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="swap"], c(2.07,3.07,4.07), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
 
-points(pred.fit~broodsize, data=subset(winggain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+plot(pred.fit~I(broodsize+.02), data=subset(winggain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(10,20) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+arrows(c(2.02,3.02,4.02), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="swap"], c(2.02,3.02,4.02), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+
 points(pred.fit~I(broodsize+.09), data=subset(winggain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
 arrows(c(2.09,3.09,4.09), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
-arrows(c(2,3,4), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="unmanipulated"], c(2,3,4), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
-#box()
 
-text(3,25, "C) Wing", font=2, cex=1.2)
-legend(3.15,13.5, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+
+range(nestlingGains_no_ctrl$wingGain, na.rm=T)
+points(wingGain~I(broodsize), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(wingGain~I(broodsize+.09), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,20, "C) Wing", font=2, cex=1.2)
+legend(3.2,11.5, c("BTBW-translocated","BTBW-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("blue","blue"),cex=.85)
 axis(side=1, at=xtick, labels = TRUE)
-#text(3.8, 25.5, "C", font=2, cex=1.5)
-#box(which="plot",lty = "solid", col="black")
 
-
-#bill measurement plot
 
 #nares
-#par(oma=c(1,1,1,1))
-plot(pred.fit~I(broodsize+.02), data=subset(naresgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(0.5,1.5) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
-points(pred.fit~I(broodsize+.07), data=subset(naresgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
-arrows(c(2.02,3.02,4.02), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
-arrows(c(2.07,3.07,4.07), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
 
-points(pred.fit~broodsize, data=subset(naresgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+plot(pred.fit~I(broodsize+.02), data=subset(naresgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(0.29,1.5) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+arrows(c(2.02,3.02,4.02), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+
 points(pred.fit~I(broodsize+.09), data=subset(naresgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
 arrows(c(2.09,3.09,4.09), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
-arrows(c(2,3,4), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="unmanipulated"], c(2,3,4), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
 
-text(3,1.45, "D) Nares", font=2, cex=1.2)
-legend(3.08,0.72, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+range(nestlingGains_no_ctrl$naresGain, na.rm=T)
+points(naresGain~I(broodsize), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(naresGain~I(broodsize+.09), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,1.3, "D) Nares", font=2, cex=1.2)
+legend(2,0.43, c("BTBW-translocated","BTBW-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("blue","blue"),cex=.85)
 axis(side=1, at=xtick, labels = TRUE)
-#text(3.8, 0.57, "A", font=2, cex=1.5)
-#box(which="plot",lty = "solid", col="black")
+
 
 #bill width
 
-#par(oma=c(1,1,1,1))
-plot(pred.fit~I(broodsize+.02), data=subset(widthgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(0,1.1) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
-points(pred.fit~I(broodsize+.07), data=subset(widthgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
-arrows(c(2.02,3.02,4.02), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
-arrows(c(2.07,3.07,4.07), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
 
-points(pred.fit~broodsize, data=subset(widthgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+plot(pred.fit~I(broodsize+.02), data=subset(widthgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(-0.15,1.1) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+arrows(c(2.02,3.02,4.02), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+
 points(pred.fit~I(broodsize+.09), data=subset(widthgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
 arrows(c(2.09,3.09,4.09), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
-arrows(c(2,3,4), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="unmanipulated"], c(2,3,4), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
 
-text(3,1.04, "E) Bill Width", font=2, cex=1.2)
-legend(2.0,0.25, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+range(nestlingGains_no_ctrl$widthGain, na.rm=T)
+points(widthGain~I(broodsize), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(widthGain~I(broodsize+.09), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,1.1, "E) Bill Width", font=2, cex=1.2)
+legend(2.0,0.0, c("BTBW-translocated","BTBW-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("blue","blue"),cex=.85)
 axis(side=1, at=xtick, labels = TRUE)
 
-#text(3.8, 0.07, "B", font=2, cex=1.5)
+#Depth
 
-#box(which="plot",lty = "solid", col="black")
-
-
-#depth
-
-
-#par(oma=c(1,1,1,1))
-plot(pred.fit~I(broodsize+.02), data=subset(depthgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), lwd=2, pch=16,type='b',xlim=c(2,4.1),ylim=c(0,0.7), ylab="Gain(mm)", xlab="Brood size")
-points(pred.fit~I(broodsize+.07), data=subset(depthgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+plot(pred.fit~I(broodsize+.02), data=subset(depthgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), lwd=2, pch=16,type='b',xlim=c(2,4.1),ylim=c(-0.1,0.6), ylab="Gain(mm)", xlab="Brood size")
 arrows(c(2.02,3.02,4.02), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="BTBW"& depthgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="BTBW"& depthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
-arrows(c(2.07,3.07,4.07), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
 
-points(pred.fit~broodsize, data=subset(depthgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
 points(pred.fit~I(broodsize+.09), data=subset(depthgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
 arrows(c(2.09,3.09,4.09), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="BTBW"& depthgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="BTBW"& depthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
-arrows(c(2,3,4), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="unmanipulated"], c(2,3,4), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
-text(3,0.65, "F) Bill Depth", font=2, cex=1.2)
+text(2.5,0.6, "F) Bill Depth", font=2, cex=1.2)
 
-legend(2.0,0.15, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+#range(nestlingGains_no_ctrl$depthGain, na.rm=T)
+points(depthGain~I(broodsize), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(depthGain~I(broodsize+.09), data=subset(nestlingGains_no_ctrl, species=="BTBW"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+legend(2,-.02, c("BTBW-translocated","BTBW-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("blue","blue"),cex=.85)
 axis(side=1, at=xtick, labels = TRUE)
-#text(3.8, 0.046, "C", font=2, cex=1.5)
 
 dev.off()
-system("open NESTLINGS.png")
+system("open BTBW_NESTLINGS.png")
+
+
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+
+
+
+
+#### HOWA
+
+#### 6-panel plot ####
+png("HOWA_NESTLINGS.png", width=8, height=10, units="in", res=800)
+par(mfrow=c(3,2),mar=c(4,4,1,1),oma=c(1,1,1,1))
+plot(pred.fit~broodsize, data=subset(massgain.new.dat, species=="HOWA"& trt=="swap"),xaxt='n',col=c("red"), pch=16,type='b',xlim=c(2,4.1),ylim=c(4,6.4) ,ylab="Gain(g)", xlab="Brood size", lwd=2)
+arrows(c(2,3,4), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="swap"], c(2,3,4), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+
+
+points(pred.fit~I(broodsize+.09), data=subset(massgain.new.dat, species=="HOWA"&  trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+arrows(c(2.09,3.09,4.09), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+
+# add means
+range(nestlingGains_no_ctrl$massGain, na.rm=T)
+points(massGain~I(broodsize-.05), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(massGain~I(broodsize+.05), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,6.4, "A) Mass", font=2, cex=1.2)
+legend(2.1,4.3, c("HOWA-translocated","HOWA-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("red","red"),cex=.85)
+axis(side=1, at=xtick, labels = TRUE)
+
+#tarsus gain
+
+
+plot(pred.fit~I(broodsize+.02), data=subset(tarsgain.new.dat, species=="HOWA"& trt=="swap"),xaxt='n',col=c("red"), pch=16,type='b',xlim=c(2,4.1),ylim=c(5.1,13.1) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+arrows(c(2.02,3.02,4.02), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+
+
+points(pred.fit~I(broodsize+.09), data=subset(tarsgain.new.dat, species=="HOWA"&  trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+arrows(c(2.09,3.09,4.09), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+
+#range(nestlingGains_no_ctrl$tarsGain, na.rm=T)
+points(tarsGain~I(broodsize-.05), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(tarsGain~I(broodsize+.05), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,13, "B) Tarsus", font=2, cex=1.2)
+legend(2.15,6.1, c("HOWA-translocated","HOWA-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("red","red"),cex=.85)
+axis(side=1, at=xtick, labels = TRUE)
+
+
+#wing
+plot(pred.fit~I(broodsize+.02), data=subset(winggain.new.dat, species=="HOWA"& trt=="swap"),xaxt='n',col=c("red"), pch=16,type='b',xlim=c(2,4.1),ylim=c(10,25) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+arrows(c(2.02,3.02,4.02), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="swap"], c(2.02,3.02,4.02), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+
+points(pred.fit~I(broodsize+.09), data=subset(winggain.new.dat, species=="HOWA"&  trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+arrows(c(2.09,3.09,4.09), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+
+
+range(nestlingGains_no_ctrl$wingGain, na.rm=T)
+points(wingGain~I(broodsize-.05), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(wingGain~I(broodsize+.05), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,25, "C) Wing", font=2, cex=1.2)
+legend(3.2,11.8, c("HOWA-translocated","HOWA-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("red","red"),cex=.85)
+axis(side=1, at=xtick, labels = TRUE)
+
+
+#nares
+
+plot(pred.fit~I(broodsize+.02), data=subset(naresgain.new.dat, species=="HOWA"& trt=="swap"),xaxt='n',col=c("red"), pch=16,type='b',xlim=c(2,4.1),ylim=c(0.9,1.81) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+arrows(c(2.02,3.02,4.02), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+
+points(pred.fit~I(broodsize+.09), data=subset(naresgain.new.dat, species=="HOWA"&  trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+arrows(c(2.09,3.09,4.09), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+
+range(nestlingGains_no_ctrl$naresGain, na.rm=T)
+
+points(naresGain~I(broodsize-.05), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(naresGain~I(broodsize+.05), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,1.81, "D) Nares", font=2, cex=1.2)
+legend(3.15,1.8, c("HOWA-translocated","HOWA-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("red","red"),cex=.85)
+axis(side=1, at=xtick, labels = TRUE)
+
+
+#bill width
+
+
+plot(pred.fit~I(broodsize+.02), data=subset(widthgain.new.dat, species=="HOWA"& trt=="swap"),xaxt='n',col=c("red"), pch=16,type='b',xlim=c(2,4.1),ylim=c(-.1,1.1) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+arrows(c(2.02,3.02,4.02), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+
+points(pred.fit~I(broodsize+.09), data=subset(widthgain.new.dat, species=="HOWA"&  trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+arrows(c(2.09,3.09,4.09), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+
+range(nestlingGains_no_ctrl$widthGain, na.rm=T)
+points(widthGain~I(broodsize), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(widthGain~I(broodsize+.09), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+
+text(2.5,1.1, "E) Bill Width", font=2, cex=1.2)
+legend(2.0,0.05, c("HOWA-translocated","HOWA-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("red","red"),cex=.85)
+axis(side=1, at=xtick, labels = TRUE)
+
+#Depth
+
+plot(pred.fit~I(broodsize+.02), data=subset(depthgain.new.dat, species=="HOWA"& trt=="swap"),xaxt='n',col=c("red"), lwd=2, pch=16,type='b',xlim=c(2,4.1),ylim=c(-0.1,.81), ylab="Gain(mm)", xlab="Brood size")
+arrows(c(2.02,3.02,4.02), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+
+points(pred.fit~I(broodsize+.09), data=subset(depthgain.new.dat, species=="HOWA"&  trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+arrows(c(2.09,3.09,4.09), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+
+
+range(nestlingGains_no_ctrl$depthGain, na.rm=T)
+points(depthGain~I(broodsize), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="swap"),col=c("black"), pch=16)#,type='b', lty=3, lwd=2)
+points(depthGain~I(broodsize+.09), data=subset(nestlingGains_no_ctrl, species=="HOWA"&  trt=="unmanipulated"),col=c("black"), pch=15)#,type='b', lty=3, lwd=2)
+
+text(2.5,0.81, "F) Bill Depth", font=2, cex=1.2)
+legend(2,0.02, c("HOWA-translocated","HOWA-umanipulated"), pch=c(16,15),lty=c(1,3), col=c("red","red"),cex=.85)
+axis(side=1, at=xtick, labels = TRUE)
+
+dev.off()
+system("open HOWA_NESTLINGS.png")
+
+
+
+
+
+
+
+# uncomment to see nesting comparisions in the same plots.
+
+# 
+# #### 6-panel plot ####
+# 
+# xtick<-seq(2, 4, by=1)
+# axis(side=1, at=xtick, labels = FALSE)
+# #mass gain
+# png("NESTLINGS.png", width=8, height=10, units="in", res=800)
+# par(mfrow=c(3,2),mar=c(4,4,1,1),oma=c(1,1,1,1))
+# plot(pred.fit~broodsize, data=subset(massgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(4.3,5.9) ,ylab="Gain(g)", xlab="Brood size", lwd=2)
+# points(pred.fit~I(broodsize+.07), data=subset(massgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+# arrows(c(2,3,4), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="BTBW"& massgain.new.dat$trt=="swap"], c(2,3,4), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="BTBW"& massgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+# arrows(c(2.07,3.07,4.07), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+# 
+# points(pred.fit~I(broodsize), data=subset(massgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+# points(pred.fit~I(broodsize+.09), data=subset(massgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
+# arrows(c(2.09,3.09,4.09), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="BTBW"& massgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="BTBW"& massgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
+# arrows(c(2,3,4), massgain.new.dat$pred.CI.lwr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="unmanipulated"], c(2,3,4), massgain.new.dat$pred.CI.upr[massgain.new.dat$species=="HOWA"& massgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+# 
+# text(3,5.8, "A) Mass", font=2, cex=1.2)
+# legend(2.15,4.62, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+# axis(side=1, at=xtick, labels = TRUE)
+# #text(3.8, 5.82, "A", font=2, cex=1.5)
+# 
+# #tarsus gain
+# 
+# #par(oma=c(1,1,1,1))
+# plot(pred.fit~I(broodsize+.02), data=subset(tarsgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(4.7,13.1) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+# points(pred.fit~I(broodsize+.07), data=subset(tarsgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+# arrows(c(2.02,3.02,4.02), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="BTBW"& tarsgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="BTBW"& tarsgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+# arrows(c(2.07,3.07,4.07), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+# 
+# 
+# points(pred.fit~broodsize, data=subset(tarsgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+# points(pred.fit~I(broodsize+.09), data=subset(tarsgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
+# arrows(c(2.09,3.09,4.09), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="BTBW"& tarsgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="BTBW"& tarsgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
+# arrows(c(2,3,4), tarsgain.new.dat$pred.CI.lwr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="unmanipulated"], c(2,3,4), tarsgain.new.dat$pred.CI.upr[tarsgain.new.dat$species=="HOWA"& tarsgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+# 
+# text(3,12.5, "B) Tarsus", font=2, cex=1.2)
+# legend(2.15,6.37, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+# axis(side=1, at=xtick, labels = TRUE)
+# #text(3.8, 12.8, "B", font=2, cex=1.5)
+# 
+# #box(which="plot",lty = "solid", col="black")
+# 
+# #wing
+# #par(oma=c(1,1,1,1))
+# plot(pred.fit~I(broodsize+.02), data=subset(winggain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(10,26) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+# points(pred.fit~I(broodsize+.07), data=subset(winggain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+# arrows(c(2.02,3.02,4.02), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="swap"], c(2.02,3.02,4.02), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+# arrows(c(2.07,3.07,4.07), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="swap"], c(2.07,3.07,4.07), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+# 
+# points(pred.fit~broodsize, data=subset(winggain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+# points(pred.fit~I(broodsize+.09), data=subset(winggain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
+# arrows(c(2.09,3.09,4.09), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="BTBW"& winggain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
+# arrows(c(2,3,4), winggain.new.dat$pred.CI.lwr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="unmanipulated"], c(2,3,4), winggain.new.dat$pred.CI.upr[winggain.new.dat$species=="HOWA"& winggain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+# #box()
+# 
+# text(3,25, "C) Wing", font=2, cex=1.2)
+# legend(3.15,13.5, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+# axis(side=1, at=xtick, labels = TRUE)
+# #text(3.8, 25.5, "C", font=2, cex=1.5)
+# #box(which="plot",lty = "solid", col="black")
+# 
+# 
+# #bill measurement plot
+# 
+# #nares
+# #par(oma=c(1,1,1,1))
+# plot(pred.fit~I(broodsize+.02), data=subset(naresgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(0.5,1.5) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+# points(pred.fit~I(broodsize+.07), data=subset(naresgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+# arrows(c(2.02,3.02,4.02), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+# arrows(c(2.07,3.07,4.07), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+# 
+# points(pred.fit~broodsize, data=subset(naresgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+# points(pred.fit~I(broodsize+.09), data=subset(naresgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
+# arrows(c(2.09,3.09,4.09), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="BTBW"& naresgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
+# arrows(c(2,3,4), naresgain.new.dat$pred.CI.lwr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="unmanipulated"], c(2,3,4), naresgain.new.dat$pred.CI.upr[naresgain.new.dat$species=="HOWA"& naresgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+# 
+# text(3,1.45, "D) Nares", font=2, cex=1.2)
+# legend(3.08,0.72, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+# axis(side=1, at=xtick, labels = TRUE)
+# #text(3.8, 0.57, "A", font=2, cex=1.5)
+# #box(which="plot",lty = "solid", col="black")
+# 
+# #bill width
+# 
+# #par(oma=c(1,1,1,1))
+# plot(pred.fit~I(broodsize+.02), data=subset(widthgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), pch=16,type='b',xlim=c(2,4.1),ylim=c(0,1.1) ,ylab="Gain(mm)", xlab="Brood size", lwd=2)
+# points(pred.fit~I(broodsize+.07), data=subset(widthgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+# arrows(c(2.02,3.02,4.02), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+# arrows(c(2.07,3.07,4.07), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+# 
+# points(pred.fit~broodsize, data=subset(widthgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+# points(pred.fit~I(broodsize+.09), data=subset(widthgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
+# arrows(c(2.09,3.09,4.09), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="BTBW"& widthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
+# arrows(c(2,3,4), widthgain.new.dat$pred.CI.lwr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="unmanipulated"], c(2,3,4), widthgain.new.dat$pred.CI.upr[widthgain.new.dat$species=="HOWA"& widthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+# 
+# text(3,1.04, "E) Bill Width", font=2, cex=1.2)
+# legend(2.0,0.25, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+# axis(side=1, at=xtick, labels = TRUE)
+# 
+# #text(3.8, 0.07, "B", font=2, cex=1.5)
+# 
+# #box(which="plot",lty = "solid", col="black")
+# 
+# 
+# #depth
+# 
+# 
+# #par(oma=c(1,1,1,1))
+# plot(pred.fit~I(broodsize+.02), data=subset(depthgain.new.dat, species=="BTBW"& trt=="swap"),xaxt='n',col=c("blue"), lwd=2, pch=16,type='b',xlim=c(2,4.1),ylim=c(0,0.7), ylab="Gain(mm)", xlab="Brood size")
+# points(pred.fit~I(broodsize+.07), data=subset(depthgain.new.dat, species=="HOWA" & trt=="swap"),col=c("red"), pch=16,type='b', lwd=2)
+# arrows(c(2.02,3.02,4.02), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="BTBW"& depthgain.new.dat$trt=="swap"], c(2.02,3.02,4.02), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="BTBW"& depthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="blue", lwd=2)
+# arrows(c(2.07,3.07,4.07), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="swap"], c(2.07,3.07,4.07), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="swap"], code=3, angle=90, length=.05, col="red", lwd=2)
+# 
+# points(pred.fit~broodsize, data=subset(depthgain.new.dat, species=="HOWA" & trt=="unmanipulated"),col=c("red"), pch=15,type='b', lty=3, lwd=2)
+# points(pred.fit~I(broodsize+.09), data=subset(depthgain.new.dat, species=="BTBW"&  trt=="unmanipulated"),col=c("blue"), pch=15,type='b', lty=3, lwd=2)
+# arrows(c(2.09,3.09,4.09), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="BTBW"& depthgain.new.dat$trt=="unmanipulated"], c(2.09,3.09,4.09), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="BTBW"& depthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="blue", lty=2, lwd=2)
+# arrows(c(2,3,4), depthgain.new.dat$pred.CI.lwr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="unmanipulated"], c(2,3,4), depthgain.new.dat$pred.CI.upr[depthgain.new.dat$species=="HOWA"& depthgain.new.dat$trt=="unmanipulated"], code=3, angle=90, length=.05, col="red", lty=2, lwd=2)
+# text(3,0.65, "F) Bill Depth", font=2, cex=1.2)
+# 
+# legend(2.0,0.15, c("HOWA-translocated", "HOWA-unmanipulated","BTBW-translocated","BTBW-umanipulated"), pch=c(16,15,16,15),lty=c(1,3,1,3), col=c("red","red","blue","blue"),cex=.85)
+# axis(side=1, at=xtick, labels = TRUE)
+# #text(3.8, 0.046, "C", font=2, cex=1.5)
+# 
+# dev.off()
+# system("open NESTLINGS.png")
+
