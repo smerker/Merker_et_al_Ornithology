@@ -59,6 +59,11 @@ summary(glm.HinON)
 glm.HinON.best <- step(glm.HinON)  ## Best model has species only
 summary(glm.HinON.best)
 
+
+
+
+
+
 ## Prediction data
 pred.t.in.off.howa <- seq(min(subset(micro_clim_data, Species_eggs=="HOWA", select=TinOFFscl), na.rm=TRUE),
                           max(subset(micro_clim_data, Species_eggs=="HOWA", select=TinOFFscl), na.rm=TRUE),

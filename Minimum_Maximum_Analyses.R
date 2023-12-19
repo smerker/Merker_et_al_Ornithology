@@ -362,6 +362,10 @@ glm.day.T.out.max<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs+day_T_out_ma
 summary(glm.day.T.out.max)
 
 
+glm.day.T.out.max<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*day_T_out_max, family=binomial, data=minmax.clim.data, na.action = na.omit)
+summary(glm.day.T.out.max)
+
+
 #day humidity in
 glm.day.H.in.max<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs+day_H_in_max, family=binomial, data=minmax.clim.data, na.action = na.omit)
 summary(glm.day.H.in.max)
@@ -381,7 +385,30 @@ glm.day.H.inout.max<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs+day_H_in_m
 summary(glm.day.H.inout.max)
 
 
-day.aic<-AIC(glm.day.T.in.max, glm.day.T.out.max, glm.day.H.in.max, glm.day.H.out.max, glm.day.T.inout.max, glm.day.H.inout.max)
+
+
+## Sam, I think this is the model that best reflects our hypothesis (that BTBW hatch rate would be more sensitive to temp than HOWA)
+#day time temp in nest with interaction
+glm.day.TxS.in.max<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*day_T_in_max, family=binomial, data=minmax.clim.data)
+summary(glm.day.TxS.in.max)
+
+#day time temp out of nest with interaction
+glm.day.TxS.out.max<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*day_T_out_min, family=binomial, data=minmax.clim.data)
+summary(glm.day.TxS.out.max)
+
+
+#day time temp in nest with interaction
+glm.day.HxS.in.max<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*day_H_in_max, family=binomial, data=minmax.clim.data)
+summary(glm.day.HxS.in.max)
+
+#day time temp out of nest with interaction
+glm.day.HxS.out.max<-glm(cbind(Eggs.Hatched,unhatched) ~ Species_eggs*day_H_out_min, family=binomial, data=minmax.clim.data)
+summary(glm.day.HxS.in.max)
+
+
+
+
+day.aic<-AIC(glm.day.T.in.max, glm.day.T.out.max, glm.day.H.in.max, glm.day.H.out.max, glm.day.T.inout.max, glm.day.H.inout.max, glm.day.TxS.in.max)
 
 
 day.aic.ord<-day.aic[order(day.aic$AIC),]
@@ -401,7 +428,8 @@ range(minmax.clim.data[minmax.clim.data$Species_Inc=="BTBW", 'day_T_in_max'], na
 
 
 new.daytime.max.T.data<-data.frame(Species_eggs=rep(c("BTBW", "HOWA"), each=100), day_T_in_max=c(seq(from=28.08, to=40.04, length=100), seq(from=29.61, to=42.07, length=100)))
-max.t.in.pred<-predict(glm.day.T.in.max, newdata = new.daytime.max.T.data, type="link", se.fit=TRUE)
+## max.t.in.pred<-predict(glm.day.T.in.max, newdata = new.daytime.max.T.data, type="link", se.fit=TRUE)
+max.t.in.pred<-predict(glm.day.TxS.in.max, newdata = new.daytime.max.T.data, type="link", se.fit=TRUE)
 max.t.in.pred
 
 new.daytime.max.T.data$fit<-plogis(max.t.in.pred$fit)
