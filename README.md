@@ -20,6 +20,8 @@ This repository contains data and R scripts to recreate the analyses in the pape
             -microclimate_on_hatching.R
             -micro_climate_data.gzip
             -Nest_Climate_Data.gzip
+            -insums.R
+            -outsums.R
 
 5. **Nestling measurement data**
 
