@@ -1,6 +1,6 @@
 ## Data and Code for:
 
-###### WARMER NEST TEMPERATURES REDUCE HATCHING RATES OF A COOL-ADAPTED, MIGRATORY SONGBIRD AT ITS TRAILING-EDGE RANGE BOUNDARY
+###### Egg translocation across a local range boundary reduces hatch rates in a trailing-edge population of a migratory songbird, the Black-throated Blue Warbler
 
 This repository contains data and R scripts to recreate the analyses in the paper, including:
 
