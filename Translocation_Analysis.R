@@ -1,8 +1,6 @@
 ## Load translocation data
 load("Translocation_Data.gzip")
 
-## save(Translocation_Data, file="Translocation_Data.gzip")
-
 ## Fit the binomial GLM
 glm1 <- glm(cbind(Eggs.Hatched,unhatched) ~ treatment_combined, family=binomial, data=Translocation_Data)
 summary(glm1)
@@ -13,8 +11,8 @@ step(glm1)               ## Model with treatment is better than the null
 library(multcomp)
 glm1.sum.mc <- summary(glht(glm1, linfct=mcp(treatment_combined="Tukey")))
 glm1.sum.mc
-#
 
+#
 glm.df <- data.frame(estimate=glm1.sum.mc$test$coefficients[1:15],
                      std.error=glm1.sum.mc$test$sigma[1:15],
                      p.value=glm1.sum.mc$test$pvalues[1:15])
@@ -49,8 +47,7 @@ labs
 
 ytick<-c(0.0,0.6,0.8,1.0)
 
-
-png("hatch_rate.png", width=7, height=7, units="in", res=800)
+png("Figure_3.png", width=8, height=7, units="in", res=600)
 par(mai=c(0.9,0.9,0.2,0.4))
 bpx <- barplot(new.dat$prediction, ylim=c(0.4,1), space=c(0,0,0,.3,0,0), 
                col=c("lightblue","lightblue","lightblue", "orangered", "orangered", "orangered"),
@@ -61,14 +58,12 @@ text(par("usr")[1],c(0.4,.6,.8,1),
      labels = ytick, pos = 2, xpd=NA, offset=1)
 arrows(bpx, new.dat$prediction, 
        bpx, new.dat$prediction+new.dat$se, code=3, angle=90, length=.05)
-##text(c(.3,1.15,1.95,3.6,4.45,5.15)-.1, par("usr")[3]-c(.02,.02,.04), labels = labs, srt = 30, pos = 1, xpd = TRUE, cex=.9, font=1)
 text(bpx-0.1, par("usr")[3]-0.01, labels = labs, srt = 330, adj=0.0, xpd = TRUE,
      cex=1.1, font=1)
-#legend(-.2,.98, c("Black-throated blue", "Hooded"),title="Warbler Species", pch=15, col=c("lightblue","orangered"), cex=0.65)
 box(which="plot", bty=c("]"))
 dev.off()
 
-system("open hatch_rate.png")
+system("open Figure_3.png")
 
 
 
