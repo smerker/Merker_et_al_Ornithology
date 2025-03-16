@@ -32,4 +32,9 @@ This repository contains data and R scripts to recreate the analyses in the pape
    
             -Range_Maps.R
             -btbw_howa_map_data.gzip
+   
+6. **Nest Dates**
+   
+            -nest dates.R
+            -nest_dates.gzip
 
