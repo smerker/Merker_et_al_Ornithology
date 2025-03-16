@@ -13,9 +13,6 @@ This repository contains data and R scripts to recreate the analyses in the pape
             
             -Female_behavior.R
             -female_behavior.gzip
-            -in_sums.R
-            -newdatclim.R
-            -out_sums.R
             
 3. **Internal and external (ambient) nest temperature data**
 
@@ -29,12 +26,7 @@ This repository contains data and R scripts to recreate the analyses in the pape
             -Nestlings.R
             -Nestlings.gzip
    
-6. **Minimums and Maximums**
-
-            -Mimimum_Maximum_Analyses.R
-            -Mimimum_maximum_Temp_Humid.gzip
-
-7. **Range Map**
+6. **Range Map**
    
             -Range_Maps.R
             -btbw_howa_map_data.gzip
