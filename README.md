@@ -34,5 +34,7 @@ This repository contains data and R scripts to recreate the analyses in the pape
             -Mimimum_Maximum_Analyses.R
             -Mimimum_maximum_Temp_Humid.gzip
 
-
+6. **Range Map**
+             -Range_Maps.R
+             -btbw_howa_map_data.gzip
 
