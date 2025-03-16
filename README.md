@@ -37,4 +37,9 @@ This repository contains data and R scripts to recreate the analyses in the pape
    
             -nest dates.R
             -nest_dates.gzip
+   
+8. **Time eggs out of nest**
+   
+            -time_out_of_nests.R
+            -time_data.gzip
 
