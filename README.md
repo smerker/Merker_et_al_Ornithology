@@ -1,6 +1,8 @@
 ## Data and Code for:
 
-###### Egg translocation across a local range boundary reduces hatch rates in a trailing-edge population of a migratory songbird, the Black-throated Blue Warbler
+###### Egg translocation across a local range boundary reduces hatch rates in a trailing-edge population of a migratory songbird, the Black-throated Blue Warbler (2025)
+Ornithology, ukaf007, https://doi.org/10.1093/ornithology/ukaf007
+Samuel A Merker, T Scott Sillett, Benjamin G Freeman, Robert J Cooper, Richard B Chandler
 
 This repository contains data and R scripts to recreate the analyses in the paper.
 Each script should be independent and should load the required and associated data to run the script and recreate figures in the manuscript.
